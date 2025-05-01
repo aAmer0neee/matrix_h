@@ -1,0 +1,29 @@
+#suite extra_test
+
+#test extra_test1
+matrix_t mtrx1;
+s21_create_matrix(3, 3, &mtrx1);
+initialize_random_matrix_double(&mtrx1);
+s21_remove_matrix(&mtrx1);
+
+#test extra_test2
+matrix_t mtrx1;
+int s21_res = s21_create_matrix(0, 3, &mtrx1);
+ck_assert_int_eq(s21_res, ERROR_INCORRECT);
+
+#test extra_test3
+matrix_t mtrx1;
+int s21_res = s21_create_matrix(3, 0, &mtrx1);
+ck_assert_int_eq(s21_res, ERROR_INCORRECT);
+
+#test extra_test4
+int s21_res = s21_create_matrix(3, 3, NULL);
+ck_assert_int_eq(s21_res, ERROR_INCORRECT);
+
+#test extra_test5
+s21_remove_matrix(NULL);
+
+#test extra_test6
+matrix_t mtrx1;
+s21_create_matrix(1, 1, &mtrx1);
+s21_validate_matrix(&mtrx1);

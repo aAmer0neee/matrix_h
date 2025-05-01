@@ -1,0 +1,102 @@
+#suite comparison_test
+
+#test comparison_test1
+matrix_t mtrx1 = {0};
+matrix_t mtrx2 = {0};
+s21_create_matrix(3, 3, &mtrx1);
+s21_create_matrix(3, 3, &mtrx2);
+int s21_res = s21_eq_matrix(&mtrx1, &mtrx2);
+ck_assert_int_eq(s21_res, SUCCESS);
+
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+
+#test comparison_test2
+matrix_t mtrx1;
+matrix_t mtrx2;
+matrix_t res;
+s21_create_matrix(3, 3, &mtrx1);
+s21_create_matrix(3, 3, &mtrx2);
+initialize_random_matrix_int(&mtrx1);
+initialize_random_matrix_int(&mtrx2);
+s21_mult_number(&mtrx2, 16273, &res);
+int s21_res = s21_eq_matrix(&mtrx1, &res);
+ck_assert_int_eq(s21_res, FAILURE);
+
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+s21_remove_matrix(&res);
+
+#test comparison_test3
+matrix_t mtrx1;
+matrix_t mtrx2;
+s21_create_matrix(2, 3, &mtrx1);
+s21_create_matrix(3, 3, &mtrx2);
+initialize_random_matrix_int(&mtrx1);
+initialize_random_matrix_int(&mtrx2);
+int s21_res = s21_eq_matrix(&mtrx1, &mtrx2);
+ck_assert_int_eq(s21_res, FAILURE);
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+
+#test comparison_test4
+matrix_t mtrx1;
+matrix_t mtrx2;
+s21_create_matrix(3, 3, &mtrx1);
+s21_create_matrix(3, 5, &mtrx2);
+initialize_random_matrix_int(&mtrx1);
+initialize_random_matrix_int(&mtrx2);
+int s21_res = s21_eq_matrix(&mtrx1, &mtrx2);
+ck_assert_int_eq(s21_res, FAILURE);
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+
+#test comparison_test5
+matrix_t mtrx1;
+matrix_t mtrx2;
+s21_create_matrix(1, 1, &mtrx1);
+s21_create_matrix(1, 1, &mtrx2);
+double value = 0.0000001;
+mtrx1.matrix[0][0] = value;
+mtrx2.matrix[0][0] = value + 0.00000001;
+int s21_res = s21_eq_matrix(&mtrx1, &mtrx2);
+ck_assert_int_eq(s21_res, SUCCESS);
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+
+#test comparison_test6
+matrix_t mtrx1;
+matrix_t mtrx2;
+s21_create_matrix(1, 1, &mtrx1);
+s21_create_matrix(1, 1, &mtrx2);
+double value = 0.000001;
+mtrx1.matrix[0][0] = value;
+mtrx2.matrix[0][0] = value + 0.0000001;
+int s21_res = s21_eq_matrix(&mtrx1, &mtrx2);
+ck_assert_int_eq(s21_res, FAILURE);
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+
+#test comparison_test7
+matrix_t mtrx1;
+matrix_t mtrx2;
+s21_create_matrix(3, 3, &mtrx1);
+s21_create_matrix(3, 3, &mtrx2);
+initialize_random_matrix_int(&mtrx1);
+initialize_random_matrix_int(&mtrx2);
+int s21_res = s21_eq_matrix(NULL, &mtrx2);
+ck_assert_int_eq(s21_res, FAILURE);
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
+
+#test comparison_test8
+matrix_t mtrx1;
+matrix_t mtrx2;
+s21_create_matrix(3, 3, &mtrx1);
+s21_create_matrix(3, 3, &mtrx2);
+initialize_random_matrix_int(&mtrx1);
+initialize_random_matrix_int(&mtrx2);
+int s21_res = s21_eq_matrix(&mtrx1, NULL);
+ck_assert_int_eq(s21_res, FAILURE);
+s21_remove_matrix(&mtrx1);
+s21_remove_matrix(&mtrx2);
